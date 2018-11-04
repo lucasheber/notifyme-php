@@ -1,0 +1,7 @@
+{
+    "require": {
+        "kreait/firebase-php": "^4.18",
+        "knplabs/github-api": "^2.10",
+        "php-http/guzzle6-adapter": "^1.1"
+    }
+}
