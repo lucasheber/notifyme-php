@@ -15,7 +15,7 @@ foreach ($payload->commits as $key => $value) {
 
     $aux['id'] = $payload->commits[$key]->id;
     $aux['message'] = $payload->commits[$key]->message;
-    $aux['timestamp'] = floatval(strtotime($payload->commits[$key]->timestamp));
+    $aux['timestamp'] = floatval(strtotime($payload->commits[$key]->timestamp)) * -1;
     $aux['author_name'] = $payload->commits[$key]->author->name;
     $aux['author_email'] = $payload->commits[$key]->author->email;
     $aux['pusher_name'] = $payload->pusher->name;
