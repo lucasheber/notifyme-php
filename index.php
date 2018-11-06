@@ -50,7 +50,7 @@ $users = $database->getReference('users')->getSnapshot()->getValue();
 $fullName = $payload->repository->full_name;
 
 $client = new \Github\Client();
-$client->authenticate("lhosif", "Onestop8399", Github\Client::AUTH_HTTP_PASSWORD);
+$client->authenticate("lucasheber", "Oliveiraa.07", Github\Client::AUTH_HTTP_PASSWORD);
 $repositories = $client->api('repo')->collaborators()->all($payload->repository->owner->name, $payload->repository->name);
 
 
