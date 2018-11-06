@@ -8,10 +8,9 @@ use Kreait\Firebase\ServiceAccount;
 $payload = json_decode($_POST['payload']);
 
 $commits = array();
+$json = array();
 
 try {
-
-
 
     foreach ($payload->commits as $key => $value) {
 
@@ -38,7 +37,14 @@ try {
         // break;
     }
 
-    if (empty($commits)) return;
+    if (empty($commits)) {
+        $json['status'] = false;
+        $json['message'] = "Nenhum commit foi encontrado";
+
+        echo json_encode($json);
+
+        exit;
+    }
 
     // This assumes that you have placed the Firebase credentials in the same directory
     // as this PHP file.
@@ -62,11 +68,12 @@ try {
     }
 
     if (empty($token)) {
-        $json = array();
         $json['status'] = false;
         $json['message'] = "Não foi possivel encontrar o token do usuario";
 
         echo json_encode($json);
+
+        exit;
     }
 
     $client = new \Github\Client();
@@ -91,6 +98,9 @@ try {
         // if ($user['username'] != $payload->pusher->name)
         sendPusher($user['registrationid'], "Um novo evento foi resgistrado em seu repositório!", $payload->repository->name);
     }
+
+    $json['status'] = true;
+    echo json_encode($json);
 
 } catch (\Exception $e) {
     $file = fopen('log.txt', 'w+');
