@@ -59,12 +59,11 @@ try {
 
     $fullName = $payload->repository->full_name;
 
-
     $token = "";
 
     foreach ($users as $user) {
         if ($user['username'] == $payload->sender->login)
-        $token = $user['github_token'];
+            $token = $user['github_token'];
     }
 
     if (empty($token)) {
@@ -79,7 +78,6 @@ try {
     $client = new \Github\Client();
     $client->authenticate($token, null, Github\Client::AUTH_HTTP_TOKEN);
     $repositories = $client->api('repo')->collaborators()->all($payload->repository->owner->name, $payload->repository->name);
-
 
     $usersNames = array();
 
@@ -105,6 +103,8 @@ try {
 } catch (\Exception $e) {
     $file = fopen('log.txt', 'w+');
 
+    echo $e->getMessage();
+    
     fwrite($file, $e->getMessage());
     fwrite($file, $e->getTraceAsString());
 
