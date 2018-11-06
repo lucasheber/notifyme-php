@@ -77,7 +77,7 @@ try {
 
     $client = new \Github\Client();
     $client->authenticate($token, null, Github\Client::AUTH_HTTP_TOKEN);
-    $repositories = $client->api('repo')->collaborators()->all($payload->repository->owner->name, $payload->repository->name);
+    $repositories = $client->api('repo')->contributors($payload->repository->owner->name, $payload->repository->name);
 
     $usersNames = array();
 
@@ -101,12 +101,5 @@ try {
     echo json_encode($json);
 
 } catch (\Exception $e) {
-    $file = fopen('log.txt', 'w+');
-
-    echo $e->getMessage();
-    
-    fwrite($file, $e->getMessage());
-    fwrite($file, $e->getTraceAsString());
-
-    fclose($file);
+    $database->getReference("logs")->push($e->getMessage() . PHP_EOL . $e->getLine());
 }
