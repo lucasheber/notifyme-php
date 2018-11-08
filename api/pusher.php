@@ -13,7 +13,7 @@ function sendPusher ($registrationId, $message, $repository) {
         // 'sound' => 'mySound', /*Default sound*/
         'vibrate'	=> 1,
         'sound'		=> 1,
-        'largeIcon'	=> 'https://png.icons8.com/search',
+        'largeIcon'	=> '',
         'smallIcon'	=> 'https://img.icons8.com/material-sharp/50/000000/nut.png'
     );
 
