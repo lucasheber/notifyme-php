@@ -201,6 +201,7 @@ switch ($headers['X-GitHub-Event']) {
     break;
 
     default:
-    echo json_encode(array("status" => false, "message" => "Evento nao reconhecido"));
+    // echo json_encode(array("status" => false, "message" => "Evento nao reconhecido"));
+    echo json_encode($headers);
     break;
 }
