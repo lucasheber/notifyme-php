@@ -10,6 +10,18 @@ $payload = json_decode($_POST['payload']);
 $commits = array();
 $json = array();
 
+if (!function_exists('getallheaders')) {
+    function getallheaders() {
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
+        }
+        return $headers;
+    }
+}
+
 $headers = getallheaders();
 
 function commitEvent ($payload, $json) {
@@ -120,7 +132,7 @@ function issueEvent ($payload, $json) {
         $issue['repository'] = $payload->repository->name;
 
         if ($payload->action == 'closed')
-            $issue['closed_at'] = floatval(strtotime($payload->issue->closed_at)) * -1;
+        $issue['closed_at'] = floatval(strtotime($payload->issue->closed_at)) * -1;
 
         // This assumes that you have placed the Firebase credentials in the same directory
         // as this PHP file.
@@ -181,14 +193,14 @@ function issueEvent ($payload, $json) {
 
 switch ($headers['X-GitHub-Event']) {
     case 'issues':
-        issueEvent($payload, $json);
+    issueEvent($payload, $json);
     break;
 
     case 'push':
-        commitEvent($payload, $json);
+    commitEvent($payload, $json);
     break;
 
     default:
-        echo json_encode(array("status" => false, "message" => "Evento nao reconhecido"));
+    echo json_encode(array("status" => false, "message" => "Evento nao reconhecido"));
     break;
 }
