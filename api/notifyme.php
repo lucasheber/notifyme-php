@@ -191,17 +191,17 @@ function issueEvent ($payload, $json) {
     }
 }
 
-switch ($headers['X-GitHub-Event']) {
+switch ($headers['X-Github-Event']) {
     case 'issues':
-    issueEvent($payload, $json);
+        issueEvent($payload, $json);
     break;
 
     case 'push':
-    commitEvent($payload, $json);
+        commitEvent($payload, $json);
     break;
 
     default:
-    // echo json_encode(array("status" => false, "message" => "Evento nao reconhecido"));
-    echo json_encode($headers);
+    echo json_encode(array("status" => false, "message" => "Evento nao reconhecido"));
+    // echo json_encode($headers);
     break;
 }
