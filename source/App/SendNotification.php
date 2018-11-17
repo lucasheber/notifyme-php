@@ -6,7 +6,7 @@
  * Time: 18:36
  */
 
-namespace App\SendNotification;
+namespace Source\App;
 
 
 class SendNotification
@@ -160,7 +160,7 @@ class SendNotification
     }
 
     /**
-     * Send a notification message for a device.
+     * Send a notification message to device.
      *
      * @throws \Exception if the values are not valid.
      * @return bool true on success or false on failure.
