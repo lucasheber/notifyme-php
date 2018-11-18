@@ -191,7 +191,9 @@ function issueEvent ($payload, $json) {
     }
 }
 
-switch ($headers['X-Github-Event']) {
+$headers = array_change_key_case ( $headers, CASE_LOWER);
+
+switch ($headers['x-github-event']) {
     case 'issues':
         issueEvent($payload, $json);
     break;
