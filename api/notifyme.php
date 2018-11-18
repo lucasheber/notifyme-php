@@ -103,12 +103,12 @@ function commitEvent ($payload, $json) {
 
             if (in_array($user['username'], $usersNames)) {
                 foreach ($commits as $commit) {
-                    //$postRef = $database->getReference("commits/{$user['uid']}/{$commit['id']}")->set($commit);
+                    $postRef = $database->getReference("commits/{$user['uid']}/{$commit['id']}")->set($commit);
                 }
             }
 
-            // if ($user['username'] != $payload->pusher->name)
-            //sendPusher($user['registrationid'], "Um novo evento foi resgistrado em seu repositório!", $payload->repository->name);
+            if ($user['username'] != $payload->pusher->name)
+                sendPusher($user['registrationid'], "Um novo evento foi resgistrado em seu repositório!", $payload->repository->name);
         }
 
         $json['status'] = true;
@@ -191,7 +191,8 @@ function issueEvent ($payload, $json) {
     }
 }
 
-$headers = array_change_key_case ( $headers, CASE_LOWER);
+// Transforma as chaves para minusculo
+$headers = array_change_key_case ($headers, CASE_LOWER);
 
 switch ($headers['x-github-event']) {
     case 'issues':
@@ -203,7 +204,6 @@ switch ($headers['x-github-event']) {
     break;
 
     default:
-    echo json_encode(array("status" => false, "message" => "Evento nao reconhecido"));
-    // echo json_encode($headers);
+        echo json_encode(array("status" => false, "message" => "Evento nao reconhecido"));
     break;
 }
